@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_x.c                                         :+:      :+:    :+:   */
+/*   lemipc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/20 17:45:46 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/29 18:16:37 by npineau          ###   ########.fr       */
+/*   Created: 2014/05/29 18:12:02 by npineau           #+#    #+#             */
+/*   Updated: 2014/05/29 18:47:29 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef	LEMIPC_H
+# define	LEMIPC_H
 
-int		x_int(int err, int res, char *str)
-{
-	if (res == err)
-	{
-		perror(str);
-		exit (1);
-	}
-	return (res);
-}
+# define	WIDTH	200
+# define	HEIGHT	200
 
-void	*x_void(void *err, void *res, char *str)
+typedef struct	s_env
 {
-	if (res == err)
-	{
-		perror(str);
-		exit (1);
-	}
-	return (res);
-}
+	key_t		key;
+	int			id;
+	char		*map;
+}				t_env;
+
+void	get_map(char *file, t_env *e);
+void	detach_map(t_env *e);
+void	destroy_map(t_env *e);
+int		x_int(int err, int res, char *str);
+void	*x_void(void *err, void *res, char *str);
+
+#endif

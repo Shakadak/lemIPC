@@ -6,7 +6,7 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/29 18:06:01 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/29 18:46:47 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 int	main(int ac, char **av)
 {
-	char	*map;
+	t_env	e;
 
-	map = get_map(av[0]);
-	x_int(-1, shmdt(data), "shmdt");
+	(void)ac;
+	get_map(av[0], &e);
+	detach_map(&e);
+	destroy_map(&e);
 	return (0);
 }
