@@ -6,7 +6,7 @@
 #    By: npineau <npineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/08 10:39:32 by npineau           #+#    #+#              #
-#    Updated: 2014/05/30 16:30:25 by npineau          ###   ########.fr        #
+#    Updated: 2014/05/30 17:18:28 by npineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ DIRLIB	:=	libft
 SRCU	:=	x.c \
 			shared_memory.c \
 			semaphore.c \
+			message_queue.c \
 			clean_up.c
 
 SRCP	:=	main.c
