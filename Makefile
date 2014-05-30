@@ -6,7 +6,7 @@
 #    By: npineau <npineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/08 10:39:32 by npineau           #+#    #+#              #
-#    Updated: 2014/05/29 15:30:16 by npineau          ###   ########.fr        #
+#    Updated: 2014/05/30 16:30:25 by npineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ DISPLAY	:=	gfx
 
 DIRSRC	:=	sources
 DIRP	:=	$(DIRSRC)/play
+DIRU	:=	$(DIRSRC)/utility
 DIRDP	:=	$(DIRSRC)/display
 DIROBJ	:=	objects
 DIRINC	:=	includes
@@ -25,8 +26,14 @@ DIRLIB	:=	libft
 
 ### FILES ###
 
-SRC
+SRCU	:=	x.c \
+			shared_memory.c \
+			semaphore.c \
+			clean_up.c
 
+SRCP	:=	main.c
+
+OBJU	:=	$(SRCU:.c=.o)
 OBJP	:=	$(SRCP:.c=.o)
 OBJDP	:=	$(SRDP:.c=.o)
 
@@ -36,6 +43,7 @@ LIB		:=	libft.a
 
 ### PATHS ###
 
+POBJU		:=	$(addprefix $(DIROBJ)/, $(OBJU))
 POBJP		:=	$(addprefix $(DIROBJ)/, $(OBJP))
 POBJDP		:=	$(addprefix $(DIROBJ)/, $(OBJDP))
 PHEADP		:=	$(DIRINC)/$(HEADP)
@@ -57,7 +65,7 @@ LINK	=	$(CC) -o $@ $^ $(L_FLAG)
 
 .PHONY: all clean fclean re
 
-all: $(PLIB) $(SERVEUR) $(CLIENT)
+all: $(PLIB) $(PLAY)# $(DISPLAY)
 
 ### LIBFT ###
 
@@ -69,9 +77,14 @@ $(PLIB):
 $(DIROBJ):
 	mkdir $(DIROBJ)
 
-$(POBJSRV): |$(DIROBJ)
+$(POBJU): |$(DIROBJ)
 
-$(POBJCLI): |$(DIROBJ)
+$(POBJP): |$(DIROBJ)
+
+$(POBJDP): |$(DIROBJ)
+
+$(DIROBJ)/%.o: $(DIRU)/%.c $(PHEADP)
+	$(COMPIL)
 
 $(DIROBJ)/%.o: $(DIRP)/%.c $(PHEADP)
 	$(COMPIL)
@@ -84,10 +97,10 @@ $(DIROBJ)/%.o: $(DIRDP)/%.c $(PHEADDP)
 $(NAME):
 	echo $(NAME)
 
-$(PLAY): $(POBJP)
+$(PLAY): $(POBJP) $(POBJU)
 	$(LINK)
 
-$(DISPLAY): $(POBJDP)
+$(DISPLAY): $(POBJDP) $(POBJU)
 	$(LINK)
 
 ### CLEAN UP ###

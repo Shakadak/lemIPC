@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/30 16:55:23 by npineau          ###   ########.fr       */
+/*   Created: 2014/05/30 16:03:57 by npineau           #+#    #+#             */
+/*   Updated: 2014/05/30 16:39:23 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+#include <stdio.h>
 #include "lemipc.h"
 
-static void	init_env(t_env *e, char *file)
+void	clean_up(t_env *e)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	get_map(e);
-	get_sem_id(e, 1);
-}
+	struct shmid_ds	tmp;
 
-int			main(int ac, char **av)
-{
-	t_env	e;
-
-	(void)ac;
-	init_env(&e, av[0]);
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+	x_int(-1, shmctl(e->id, IPC_STAT, &tmp), "shmctl");
+	if (tmp.shm_nattch == 0)
+	{
+		if (shmctl(e->id, IPC_RMID, NULL) == -1)
+			perror("shmctl");
+		x_int(-1, semctl(e->semid, 0, IPC_RMID), "semctl");
+	}
 }
