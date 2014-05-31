@@ -6,7 +6,7 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 16:08:26 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 17:09:07 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/31 18:08:17 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	init_pos(t_env *e)
 	place_self(e);
 }
 
-void	play(t_env *e)
+void		play(t_env *e)
 {
 	while (getchar() != EOF)
 	{
