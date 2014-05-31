@@ -6,7 +6,7 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/29 18:12:02 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/30 17:18:50 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/31 15:37:08 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # define	WIDTH	200
 # define	HEIGHT	200
 
+typedef struct		s_mlx
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+}					t_mlx;
+
 typedef union		u_sem
 {
 	int				val;
@@ -25,8 +32,18 @@ typedef union		u_sem
 	unsigned short	*array;
 }					t_sem;
 
+typedef struct		s_dot
+{
+	int				x;
+	int				y;
+	int				team;
+}					t_dot;
+
 typedef struct		s_env
 {
+	t_dot			player;
+	char			type;
+	t_mlx			mlx;
 	key_t			key;
 	int				id;
 	int				semid;
@@ -34,6 +51,10 @@ typedef struct		s_env
 	struct sembuf	sb;
 	char			*map;
 }					t_env;
+
+void				get_options(int ac, char **av, t_env *e);
+void				mlx(t_env *e);
+void				play(t_env *e);
 
 void				init_queue(t_env *e);
 

@@ -6,10 +6,11 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:34:44 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/30 15:24:22 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/31 15:28:35 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/ipc.h>
 #include <errno.h>
 #include <unistd.h>
 #include "lemipc.h"
@@ -25,7 +26,6 @@ static void	wait_sem(t_env *e, int nsems)
 	if (e->semid < 0)
 		return ;
 	arg.buf = &buf;
-	arg.val = 1;
 	i = 10;
 	ready = 0;
 	while (i-- && !ready)

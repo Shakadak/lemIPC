@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Created: 2013/11/26 12:49:33 by npineau           #+#    #+#             */
+/*   Updated: 2014/05/02 15:17:12 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
+#include <stdlib.h>
 #include "libft.h"
-#include "lemipc.h"
 
-static void	init_env(t_env *e, char *file)
+/*
+** Utility allocating new array of char, adding space for the terminating byte.
+** It clears the memory allocated so that no garbage can parasite the calling
+** process.
+*/
+
+char	*ft_strnew(size_t size)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	init_queue(e);
-	get_map(e);
-	get_sem_id(e, 1);
-}
+	char	*str;
 
-int			main(int ac, char **av)
-{
-	t_env	e;
-
-	get_options(ac, av, &e);
-	init_env(&e, av[0]);
-/*	if (e.type)
-		mlx(&e);
+	str = (char *)malloc(sizeof(char) * (size + 1));
+	if (str)
+	{
+		size++;
+		while (size)
+		{
+			size--;
+			str[size] = 0;
+		}
+		return (str);
+	}
 	else
-		play(&e);*/
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+		return (NULL);
 }

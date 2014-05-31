@@ -6,7 +6,7 @@
 #    By: npineau <npineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/08 10:39:32 by npineau           #+#    #+#              #
-#    Updated: 2014/05/30 17:18:28 by npineau          ###   ########.fr        #
+#    Updated: 2014/05/31 13:53:42 by npineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCU	:=	x.c \
 			shared_memory.c \
 			semaphore.c \
 			message_queue.c \
-			clean_up.c
+			clean_up.c \
+			get_options.c
 
 SRCP	:=	main.c
 

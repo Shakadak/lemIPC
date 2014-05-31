@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Created: 2013/11/20 15:06:02 by npineau           #+#    #+#             */
+/*   Updated: 2014/02/05 12:01:56 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
-#include "libft.h"
-#include "lemipc.h"
+#include <string.h>
 
-static void	init_env(t_env *e, char *file)
+void	*ft_memccpy(void *s1, const void *s2, int c, size_t n)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	init_queue(e);
-	get_map(e);
-	get_sem_id(e, 1);
-}
+	size_t		i;
+	char		*dst;
+	const char	*src;
 
-int			main(int ac, char **av)
-{
-	t_env	e;
-
-	get_options(ac, av, &e);
-	init_env(&e, av[0]);
-/*	if (e.type)
-		mlx(&e);
-	else
-		play(&e);*/
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+	dst = s1;
+	src = s2;
+	if (s1 && s2 && n)
+	{
+		i = 0;
+		while (i < n && src[i] != (unsigned char)c)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		if (src[i] == (unsigned char)c && i < n)
+		{
+			dst[i] = src[i];
+			return (&dst[i + 1]);
+		}
+	}
+	return (NULL);
 }

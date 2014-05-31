@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Created: 2013/11/30 16:48:17 by npineau           #+#    #+#             */
+/*   Updated: 2014/05/06 13:02:20 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
+#include <stdlib.h>
 #include "libft.h"
-#include "lemipc.h"
 
-static void	init_env(t_env *e, char *file)
+static void	ft_elemdel(void *content, size_t size)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	init_queue(e);
-	get_map(e);
-	get_sem_id(e, 1);
+	(void)size;
+	free(content);
 }
 
-int			main(int ac, char **av)
+t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_env	e;
+	t_list	*new;
 
-	get_options(ac, av, &e);
-	init_env(&e, av[0]);
-/*	if (e.type)
-		mlx(&e);
-	else
-		play(&e);*/
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+	new = NULL;
+	if (lst)
+	{
+		new = ft_lstnew((f(lst))->content, lst->content_size);
+		if (!new)
+			return (NULL);
+		if (lst->next)
+		{
+			new->next = ft_lstmap(lst->next, f);
+			if (new->next == NULL)
+				ft_lstdel(&new, &ft_elemdel);
+		}
+	}
+	return (new);
 }

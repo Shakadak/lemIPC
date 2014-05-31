@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Created: 2013/11/20 16:49:27 by npineau           #+#    #+#             */
+/*   Updated: 2014/02/05 12:03:02 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
 #include "libft.h"
-#include "lemipc.h"
 
-static void	init_env(t_env *e, char *file)
+void	*ft_memmove(void *s1, const void *s2, size_t n)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	init_queue(e);
-	get_map(e);
-	get_sem_id(e, 1);
-}
+	char		tmp[n];
+	char		*dest;
+	const char	*src;
 
-int			main(int ac, char **av)
-{
-	t_env	e;
-
-	get_options(ac, av, &e);
-	init_env(&e, av[0]);
-/*	if (e.type)
-		mlx(&e);
-	else
-		play(&e);*/
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+	dest = s1;
+	src = s2;
+	if (s1 && s2 && n)
+	{
+		ft_memcpy(tmp, src, n);
+		if (s1 > s2)
+		{
+			while (n > 0)
+			{
+				dest[n - 1] = tmp[n - 1];
+				n--;
+			}
+		}
+		else
+			ft_memcpy(dest, tmp, n);
+	}
+	return (s1);
 }

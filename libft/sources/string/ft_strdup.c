@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Created: 2013/11/19 12:42:20 by npineau           #+#    #+#             */
+/*   Updated: 2014/05/06 13:06:27 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ipc.h>
+#include <stdlib.h>
 #include "libft.h"
-#include "lemipc.h"
 
-static void	init_env(t_env *e, char *file)
+char	*ft_strdup(const char *src)
 {
-	e->key = x_int(-1, ftok(file, 'N'), "ftok");
-	init_queue(e);
-	get_map(e);
-	get_sem_id(e, 1);
-}
+	unsigned int	length;
+	unsigned int	index;
+	char			*copy;
 
-int			main(int ac, char **av)
-{
-	t_env	e;
-
-	get_options(ac, av, &e);
-	init_env(&e, av[0]);
-/*	if (e.type)
-		mlx(&e);
-	else
-		play(&e);*/
-	detach_map(&e);
-	clean_up(&e);
-	return (0);
+	length = ft_strlen(src);
+	index = 0;
+	copy = (char *)malloc((1 + length) * sizeof(char));
+	if (copy == NULL)
+		return (NULL);
+	while (index < length)
+	{
+		copy[index] = src[index];
+		index++;
+	}
+	copy[index] = 0;
+	return (copy);
 }
