@@ -6,7 +6,7 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/29 16:27:36 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:28:56 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/31 16:50:25 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int			main(int ac, char **av)
 
 	get_options(ac, av, &e);
 	init_env(&e, av[0]);
-/*	if (e.type)
+	if (e.type)
 		mlx(&e);
 	else
-		play(&e);*/
-	detach_map(&e);
+		play(&e);
 	clean_up(&e);
 	return (0);
 }

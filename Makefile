@@ -6,13 +6,11 @@
 #    By: npineau <npineau@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/03/08 10:39:32 by npineau           #+#    #+#              #
-#    Updated: 2014/05/31 13:53:42 by npineau          ###   ########.fr        #
+#    Updated: 2014/05/31 17:19:26 by npineau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	fckoff
-PLAY	:=	lemipc
-DISPLAY	:=	gfx
+NAME	:=	lemipc
 
 ### DIRECTORIES ###
 
@@ -33,14 +31,16 @@ SRCU	:=	x.c \
 			clean_up.c \
 			get_options.c
 
-SRCP	:=	main.c
+SRCP	:=	main.c \
+			play.c
+
+SRCDP	:=	mlx.c
 
 OBJU	:=	$(SRCU:.c=.o)
 OBJP	:=	$(SRCP:.c=.o)
-OBJDP	:=	$(SRDP:.c=.o)
+OBJDP	:=	$(SRCDP:.c=.o)
 
-HEADP	:=	$(PLAY).h
-HEADDP	:=	$(DISPLAY).h
+HEADP	:=	$(NAME).h
 LIB		:=	libft.a
 
 ### PATHS ###
@@ -49,7 +49,6 @@ POBJU		:=	$(addprefix $(DIROBJ)/, $(OBJU))
 POBJP		:=	$(addprefix $(DIROBJ)/, $(OBJP))
 POBJDP		:=	$(addprefix $(DIROBJ)/, $(OBJDP))
 PHEADP		:=	$(DIRINC)/$(HEADP)
-PHEADDP		:=	$(DIRINC)/$(HEADDP)
 PLIB		:=	$(DIRLIB)/$(LIB)
 
 ### COMPILATION VARIABLES ###
@@ -57,7 +56,7 @@ PLIB		:=	$(DIRLIB)/$(LIB)
 CC		:=	llvm-gcc
 C_FLAG	:=	-Wall -Wextra -Werror
 O_FLAG	:=	-O3
-L_FLAG	:=	-L $(DIRLIB) -lft
+L_FLAG	:=	-L $(DIRLIB) -lft -L /usr/X11/lib -lmlx -lX11 -lXext
 C_INC	:=	-I $(DIRINC) -I $(DIRLIB)/$(DIRINC)
 
 COMPIL	=	$(CC) -o $@ -c $< $(C_INC) $(C_FLAG) $(O_FLAG)
@@ -67,7 +66,7 @@ LINK	=	$(CC) -o $@ $^ $(L_FLAG)
 
 .PHONY: all clean fclean re
 
-all: $(PLIB) $(PLAY)# $(DISPLAY)
+all: $(PLIB) $(NAME)
 
 ### LIBFT ###
 
@@ -91,18 +90,12 @@ $(DIROBJ)/%.o: $(DIRU)/%.c $(PHEADP)
 $(DIROBJ)/%.o: $(DIRP)/%.c $(PHEADP)
 	$(COMPIL)
 
-$(DIROBJ)/%.o: $(DIRDP)/%.c $(PHEADDP)
+$(DIROBJ)/%.o: $(DIRDP)/%.c $(PHEADP)
 	$(COMPIL)
 
 ### EXECUTABLE ###
 
-$(NAME):
-	echo $(NAME)
-
-$(PLAY): $(POBJP) $(POBJU)
-	$(LINK)
-
-$(DISPLAY): $(POBJDP) $(POBJU)
+$(NAME): $(POBJDP) $(POBJP) $(POBJU)
 	$(LINK)
 
 ### CLEAN UP ###
@@ -111,6 +104,6 @@ clean:
 	rm -rf $(DIROBJ)
 
 fclean: clean
-	rm -f $(PLAY) $(DISPLAY)
+	rm -f $(NAME)
 
 re: fclean all

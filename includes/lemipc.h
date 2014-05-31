@@ -6,7 +6,7 @@
 /*   By: npineau <npineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/29 18:12:02 by npineau           #+#    #+#             */
-/*   Updated: 2014/05/31 15:37:08 by npineau          ###   ########.fr       */
+/*   Updated: 2014/05/31 16:32:07 by npineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # define	WIDTH	200
 # define	HEIGHT	200
+# define	LOCK	-1
+# define	UNLOCK	1
 
 typedef struct		s_mlx
 {
@@ -34,8 +36,8 @@ typedef union		u_sem
 
 typedef struct		s_dot
 {
-	int				x;
-	int				y;
+	unsigned int	x;
+	unsigned int	y;
 	int				team;
 }					t_dot;
 
