@@ -2,9 +2,9 @@
 
 ME=`whoami`
 
-IPCS_S=`ipcs -s | egrep "[0-9]+ [0-9]+" | grep $ME | cut -f2 -d" "`
-IPCS_M=`ipcs -m | egrep "[0-9]+ [0-9]+" | grep $ME | cut -f2 -d" "`
-IPCS_Q=`ipcs -q | egrep "[0-9]+ [0-9]+" | grep $ME | cut -f2 -d" "`
+IPCS_S=`ipcs -s | egrep "[0-9]+ [0-9]+" | grep $ME | sed 's/  */\ /g' | cut -f2 -d' ' `
+IPCS_M=`ipcs -m | egrep "[0-9]+ [0-9]+" | grep $ME | sed 's/  */\ /g' | cut -d ' ' -f 2`
+IPCS_Q=`ipcs -q | egrep "[0-9]+ [0-9]+" | grep $ME | sed 's/  */\ /g' | cut -d ' ' -f 2`
 
 
 for id in $IPCS_M; do
